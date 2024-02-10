@@ -21,8 +21,11 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  if (number >= 0) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -38,8 +41,16 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let result;
+  if (a > b || a > c || a === b || a === c) {
+    result = a;
+  } else if (b > a || b > c || b === c) {
+    result = b;
+  } else if (c > a || c > b) {
+    result = c;
+  }
+  return result;
 }
 
 /**
@@ -60,8 +71,28 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  const result = [];
+  let resultNew;
+  const queenNew = Object.values(queen);
+  const kingNew = Object.values(king);
+  for (let i = 0; i < queenNew.length; i += 1) {
+    for (let j = 0; j < kingNew.length; j += 1) {
+      if (
+        (queenNew[i] !== kingNew[j] && i === j) ||
+        (queenNew[i] === kingNew[j] && i === j)
+      ) {
+        const resultQueen = queenNew[i] - kingNew[j];
+        result.push(Math.abs(resultQueen));
+        if (result[0] === result[1] || result[0] === 0 || result[1] === 0) {
+          resultNew = true;
+        } else {
+          resultNew = false;
+        }
+      }
+    }
+  }
+  return resultNew;
 }
 
 /**
@@ -82,8 +113,31 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  let sum;
+  let notDouble;
+  let result;
+  if (a !== b || a !== c || b !== c) {
+    result = false;
+  }
+  if (a === b) {
+    sum = a + b;
+    notDouble = c;
+  } else if (a === c) {
+    sum = a + c;
+    notDouble = b;
+  } else if (b === c) {
+    sum = b + c;
+    notDouble = a;
+  }
+  if (notDouble === 0) {
+    result = false;
+  } else if (sum > notDouble) {
+    result = true;
+  } else {
+    result = false;
+  }
+  return result;
 }
 
 /**
@@ -100,8 +154,48 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  const romaNumbers = [
+    '',
+    'I',
+    'II',
+    'III',
+    'IV',
+    'V',
+    'VI',
+    'VII',
+    'VIII',
+    'IX',
+    'X',
+  ];
+  const romaNumbers2 = [
+    '',
+    'X',
+    'XX',
+    'XXX',
+    'XL',
+    'L',
+    'LX',
+    'LXX',
+    'LXXX',
+    'XC',
+    'C',
+  ];
+  let result;
+  for (let i = 0; i < romaNumbers.length; i += 1) {
+    if (num === i) {
+      result = romaNumbers[i];
+    } else {
+      for (let j = 0; j < romaNumbers2.length; j += 1) {
+        const increaseNumber = Math.trunc(num / 10);
+        const numberNew = (num / 10 - increaseNumber).toFixed(1) * 10;
+        if (numberNew === i && increaseNumber === j) {
+          result = romaNumbers2[j] + romaNumbers[i];
+        }
+      }
+    }
+  }
+  return result;
 }
 
 /**
